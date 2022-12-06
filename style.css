@@ -270,8 +270,9 @@ nav form .search-data:focus {
 /* Overview */
 
 .overview {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(20, 20, 20, 0.9);
     bottom: 0;
+    color: #fff;
     box-sizing: border-box;
     left: 0;
     letter-spacing: 0.5px;
@@ -289,3 +290,34 @@ nav form .search-data:focus {
 }
 
 /* ------------------ Movie Card List End ------------------ */
+
+/* ------------------ Filter Start ------------------ */
+
+#tags {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+    padding: 18px 0 0 0;
+}
+
+.tag {
+    color: white;
+    padding: 10px 20px;
+    background-color: var(--second);
+    border-radius: 50px;
+    margin: 5px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tag:hover {
+    box-shadow: 0 10px 15px rgba(255, 61, 0, 0.5);
+}
+
+.tag.highlight {
+    background-color: rgba(255, 61, 0, 0.5);
+}
+/* ------------------ Filter Ends ------------------ */
