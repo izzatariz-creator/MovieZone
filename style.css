@@ -1,0 +1,271 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap");
+
+/* ------------------ Global Start ------------------ */
+
+* {
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+:root {
+    --main: #3d3d3d;
+    --second: #1e1d1d;
+    --third: #343434;
+}
+
+body {
+    background-color: var(--third);
+    margin: 0;
+}
+
+/* ------------------ Global End ------------------ */
+
+/* ------------------ Navigation Bar Start ------------------ */
+
+nav {
+    background: var(--second);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    padding: 0 100px;
+}
+
+nav .logo {
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -1px;
+}
+
+nav .logo span {
+    color: #ff3d00;
+}
+
+nav .nav-items {
+    display: flex;
+    flex: 1;
+    padding: 0 0 0 40px;
+}
+
+nav .nav-items li {
+    list-style: none;
+    padding: 0 15px;
+}
+
+nav .nav-items li a {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+nav .nav-items li a:hover {
+    color: #ff3d00;
+}
+
+nav form {
+    display: flex;
+    height: 40px;
+    padding: 2px;
+    background: var(--third);
+    min-width: 18% !important;
+    border-radius: 30px;
+    border: 1px solid #252525;
+}
+
+nav form .search-data {
+    width: 100%;
+    height: 100%;
+    padding: 15px 20px;
+    color: #fff;
+    font-size: 17px;
+    border: none;
+    font-weight: 500;
+    background: none;
+}
+
+nav form .search-data:focus {
+    border-radius: 30px;
+    outline: 1px solid #707070 !important;
+}
+
+@media (max-width: 1245px) {
+    nav {
+        padding: 0 50px;
+    }
+}
+
+@media (max-width: 1140px) {
+    nav {
+        padding: 0px;
+    }
+    nav .logo {
+        flex: 2;
+        text-align: center;
+    }
+    nav .nav-items {
+        position: fixed;
+        z-index: 99;
+        top: 70px;
+        width: 100%;
+        left: -100%;
+        height: 100%;
+        padding: 10px 50px 0 50px;
+        text-align: center;
+        background: #14181f;
+        display: inline-block;
+        transition: left 0.3s ease;
+    }
+    nav .nav-items.active {
+        left: 0px;
+    }
+    nav .nav-items li {
+        line-height: 40px;
+        margin: 30px 0;
+    }
+    nav .nav-items li a {
+        font-size: 20px;
+    }
+    nav form {
+        position: absolute;
+        top: 80px;
+        right: 50px;
+        opacity: 0;
+        pointer-events: none;
+        transition: top 0.3s ease, opacity 0.1s ease;
+    }
+    nav form.active {
+        top: 95px;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    nav form:before {
+        position: absolute;
+        content: "";
+        top: -13px;
+        right: 0px;
+        width: 0;
+        height: 0;
+        z-index: -1;
+        border: 10px solid transparent;
+        border-bottom-color: #1e232b;
+        margin: -20px 0 0;
+    }
+
+    nav form:after {
+        position: absolute;
+        content: "";
+        height: 60px;
+        padding: 2px;
+        background: #1e232b;
+        border-radius: 2px;
+        min-width: calc(100% + 20px);
+        z-index: -2;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+/* ------------------ Navigation Bar End ------------------ */
+
+/* ------------------ Movie Card List Start ------------------ */
+
+#movieListPopular {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 1.25rem;
+}
+
+#movieListPopular p.warning {
+    color: red;
+    font-size: 30px;
+    padding: 15rem;
+    text-align: center;
+}
+
+/* Card Design */
+
+.movieCard {
+    background-color: var(--second);
+    border-radius: 15px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    margin: 1rem;
+    overflow: hidden;
+    position: relative;
+    width: 300px;
+}
+
+.movieCard img {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.movieCard img {
+    width: 100%;
+    transition: 1s;
+}
+
+.movieCard:hover {
+    box-shadow: 0 10px 15px rgba(255, 61, 0, 0.5);
+}
+
+.movieCard:hover img {
+    filter: blur(3.5px);
+    transform: translateY(-20px);
+}
+
+/* Title & Rating */
+
+.info {
+    color: #fff;
+    padding: 1rem;
+}
+
+.info h3 {
+    margin-top: 0rem;
+}
+
+.info span {
+    background-color: #393939;
+    border-radius: 15px;
+    font-weight: bold;
+    padding: 0.3rem 0.5rem;
+}
+
+.info span.green {
+    color: green;
+}
+.info span.orange {
+    color: orange;
+}
+.info span.red {
+    color: red;
+}
+
+/* Overview */
+
+.overview {
+    background-color: rgba(255, 255, 255, 0.9);
+    bottom: 0;
+    box-sizing: border-box;
+    left: 0;
+    letter-spacing: 0.5px;
+    max-height: 100%;
+    padding: 20px;
+    position: absolute;
+    right: 0;
+    transform: translateY(101%);
+    transition: transform 0.35s ease-in;
+    width: 100%;
+}
+
+.movieCard:hover .overview {
+    transform: translateY(0);
+}
+
+/* ------------------ Movie Card List End ------------------ */
