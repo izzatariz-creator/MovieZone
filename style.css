@@ -65,6 +65,26 @@ nav .nav-items li a:hover {
     color: #ff3d00;
 }
 
+nav .login {
+    padding: 0 0 0 40px;
+}
+
+nav .login li {
+    list-style: none;
+    padding: 0 15px;
+}
+
+nav .login li a {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+nav .login li a:hover {
+    color: #ff3d00;
+}
+
 nav form {
     display: flex;
     height: 40px;
