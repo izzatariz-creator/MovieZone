@@ -151,7 +151,7 @@ function clearBtn() {
         clear.addEventListener("click", () => {
             selectedGenre = [];
             setGenre();
-            getMovies(API_URL);
+            fetchMovies(POPULAR_URL);
         });
         tagsEl.append(clear);
     }
@@ -178,7 +178,7 @@ function listMovies(data) {
     MAIN.innerHTML = "";
 
     data.forEach((movieCard) => {
-        const { title, poster_path, vote_average, overview } = movieCard;
+        const { id, title, poster_path, vote_average, overview } = movieCard;
         const movieEl = document.createElement("div");
         movieEl.classList.add("movieCard");
         movieEl.innerHTML = `
@@ -194,9 +194,17 @@ function listMovies(data) {
                 <h2>${title}</h2>
                 <h3>Overview</h3>
                 ${overview}
+                <br/>
+                <button class="know-more" id="${id}">Trailer</button>
+                <button class="detail" id="${id}">Details</button>
             </div>
         `;
         MAIN.appendChild(movieEl);
+
+        document.getElementById(id).addEventListener("click", () => {
+            console.log(id);
+            openNav(movieCard);
+        });
     });
 }
 
@@ -226,4 +234,103 @@ searchMovie.addEventListener("submit", (e) => {
     } else {
         fetchMovies(POPULAR_URL);
     }
+});
+
+const overlayContent = document.getElementById("overlay-content");
+
+/* Open when someone clicks on the span element */
+function openNav(movieCard) {
+    let id = movieCard.id;
+    fetch(BASE_URL + "/movie/" + id + "/videos?" + API_KEY)
+        .then((res) => res.json())
+        .then((videoData) => {
+            console.log(videoData);
+            if (videoData) {
+                document.getElementById("myNav").style.width = "100%";
+                if (videoData.results.length > 0) {
+                    var embed = [];
+                    var dots = [];
+                    videoData.results.forEach((video, idx) => {
+                        let { name, key, site } = video;
+
+                        if (site == "YouTube") {
+                            embed.push(`
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/${key}" title="${name}" class="embed hide" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        `);
+                            dots.push(`
+                                <span class="dot">${idx + 1}</span>
+                        `);
+                        }
+                    });
+                    var content = `
+                        <h1 class="warning">${movieCard.original_title}</h1>
+                        </br>
+
+                        ${embed.join("")}
+                        <br/>
+
+                        <div class="dots">${dots.join("")}</div>
+                    `;
+                    overlayContent.innerHTML = content;
+                    activeSlide = 0;
+                    showVideos();
+                } else {
+                    overlayContent.innerHTML = `<p class="warning">Sorry! Results Not Found</p>`;
+                }
+            }
+        });
+    document.getElementById("myNav").style.width = "100%";
+}
+
+/* Close when someone clicks on the "x" symbol inside the overlay */
+function closeNav() {
+    document.getElementById("myNav").style.width = "0%";
+}
+
+var activeSlide = 0;
+var totalVideos = 0;
+function showVideos() {
+    let embedClasses = document.querySelectorAll(".embed");
+    let dots = document.querySelectorAll(".dot");
+
+    totalVideos = embedClasses.length;
+    embedClasses.forEach((embedTag, idx) => {
+        if (activeSlide == idx) {
+            embedTag.classList.add("show");
+            embedTag.classList.remove("hide");
+        } else {
+            embedTag.classList.add("hide");
+            embedTag.classList.remove("show");
+        }
+    });
+
+    dots.forEach((dot, indx) => {
+        if (activeSlide == indx) {
+            dot.classList.add("active");
+        } else {
+            dot.classList.remove("active");
+        }
+    });
+}
+
+const leftArrow = document.getElementById("left-arrow");
+const rightArrow = document.getElementById("right-arrow");
+
+leftArrow.addEventListener("click", () => {
+    if (activeSlide > 0) {
+        activeSlide--;
+    } else {
+        activeSlide = totalVideos - 1;
+    }
+
+    showVideos();
+});
+
+rightArrow.addEventListener("click", () => {
+    if (activeSlide < totalVideos - 1) {
+        activeSlide++;
+    } else {
+        activeSlide = 0;
+    }
+    showVideos();
 });
