@@ -157,7 +157,7 @@ function clearBtn() {
     }
 }
 
-// FUNCTION - FETCH Movies (Popular)
+// FUNCTION - FETCH Movies FROM API (Popular)
 
 function fetchMovies(url) {
     fetch(url)
@@ -172,7 +172,7 @@ function fetchMovies(url) {
         });
 }
 
-// FUNCTION - List Movies (Popular)
+// FUNCTION - List Movies (CARD) (Popular)
 
 function listMovies(data) {
     MAIN.innerHTML = "";
@@ -195,8 +195,10 @@ function listMovies(data) {
                 <h3>Overview</h3>
                 ${overview}
                 <br/>
+
                 <button class="know-more" id="${id}">Trailer</button>
-                <button class="detail" id="${id}">Details</button>
+                <button class="more-detail" id="${id + "d"}">Details</button>
+
             </div>
         `;
         MAIN.appendChild(movieEl);
@@ -204,6 +206,11 @@ function listMovies(data) {
         document.getElementById(id).addEventListener("click", () => {
             console.log(id);
             openNav(movieCard);
+        });
+
+        document.getElementById(id + "d").addEventListener("click", () => {
+            console.log(id);
+            openDetailNav(movieCard);
         });
     });
 }
@@ -238,7 +245,7 @@ searchMovie.addEventListener("submit", (e) => {
 
 const overlayContent = document.getElementById("overlay-content");
 
-/* Open when someone clicks on the span element */
+// FUNCTION - MOVIES TRAILER OVERLAY
 function openNav(movieCard) {
     let id = movieCard.id;
     fetch(BASE_URL + "/movie/" + id + "/videos?" + API_KEY)
@@ -282,9 +289,28 @@ function openNav(movieCard) {
     document.getElementById("myNav").style.width = "100%";
 }
 
+const overlayContent2 = document.getElementById("overlay-content2");
+
+function openDetailNav(movieCard) {
+    document.getElementById("detailNav").style.width = "100%";
+    console.log(movieCard);
+
+    var content2 = `
+                        <h1 class="warning">${movieCard.original_title}</h1>
+                        <img src="${movieCard.poster_path ? IMAGE_URL + movieCard.poster_path : "https://placehold.co/1080x1580"}"
+                alt="${movieCard.original_title}">
+                        <h3 class="warning">Release Date: ${movieCard.release_date}</h3>
+                        <h3 class="warning" id="overview">Overview: ${movieCard.overview}</h3>
+                        <h3 class="warning">Vote Average: ${movieCard.vote_average}</h3>
+                        <h3 class="warning">Vote Count: ${movieCard.vote_count}</h3>
+                    `;
+    overlayContent2.innerHTML = content2;
+}
+
 /* Close when someone clicks on the "x" symbol inside the overlay */
 function closeNav() {
     document.getElementById("myNav").style.width = "0%";
+    document.getElementById("detailNav").style.width = "0%";
 }
 
 var activeSlide = 0;

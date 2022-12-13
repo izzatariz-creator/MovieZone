@@ -244,6 +244,9 @@ nav form .search-data:focus {
 .info {
     color: #fff;
     padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .info h3 {
@@ -324,7 +327,7 @@ nav form .search-data:focus {
 
 /* ------------------ Button Trailer&Detail Start ------------------ */
 
-.know-more {
+.overview button {
     background-color: #393939;
     border-radius: 50px;
     border: 0;
@@ -335,22 +338,7 @@ nav form .search-data:focus {
     padding: 10px 20px;
 }
 
-.know-more:hover {
-    box-shadow: 0 10px 15px rgba(255, 61, 0, 0.5);
-}
-
-.detail {
-    background-color: #393939;
-    border-radius: 50px;
-    border: 0;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    margin-top: 15px;
-    padding: 10px 20px;
-}
-
-.detail:hover {
+.overview button:hover {
     box-shadow: 0 10px 15px rgba(255, 61, 0, 0.5);
 }
 
@@ -416,6 +404,12 @@ nav form .search-data:focus {
         top: 15px;
         right: 35px;
     }
+}
+
+.warning#overview {
+    margin-right: 35em;
+    margin-left: 35em;
+     text-align: justify;
 }
 
 .embed.hide {
