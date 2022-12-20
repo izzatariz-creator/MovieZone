@@ -342,6 +342,16 @@ nav form .search-data:focus {
     box-shadow: 0 10px 15px rgba(255, 61, 0, 0.5);
 }
 
+.overview button:active {
+    background-color: rgba(255, 61, 0, 0.5);
+    outline: none;
+}
+
+.overview button:focus {
+    outline: none;
+    border: none;
+}
+
 /* ------------------ Button Trailer&Detail Ends ------------------ */
 
 /* ------------------ Overlay Starts ------------------ */
@@ -407,8 +417,8 @@ nav form .search-data:focus {
 }
 
 .warning#overview {
-    margin-right: 35em;
-    margin-left: 35em;
+    margin-right: 300px;
+    margin-left: 300px;
      text-align: justify;
 }
 

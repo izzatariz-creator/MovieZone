@@ -172,9 +172,63 @@ function fetchMovies(url) {
         });
 }
 
+function fetchSearchMovies(url) {
+    fetch(url)
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data.results);
+            if (data.results.length !== 0) {
+                listSearches(data.results);
+            } else {
+                MAIN.innerHTML = `<p class="warning">Sorry! Results Not Found</p>`;
+            }
+        });
+}
+
 // FUNCTION - List Movies (CARD) (Popular)
 
 function listMovies(data) {
+    MAIN.innerHTML = "";
+
+    data.forEach((movieCard) => {
+        const { id, title, poster_path, vote_average, overview } = movieCard;
+        const movieEl = document.createElement("div");
+        movieEl.classList.add("movieCard");
+        movieEl.innerHTML = `
+        <img src="${poster_path ? IMAGE_URL + poster_path : "https://placehold.co/1080x1580"}"
+                alt="${title}">
+
+            <div class="info">
+                <h3>${title}</h3>
+                <span class="${getColor(vote_average)}">${vote_average}</span>
+            </div>
+
+            <div class="overview">
+                <h2>${title}</h2>
+                <h3>Overview</h3>
+                ${overview}
+                <br/>
+
+                <button class="know-more" id="${id}">Trailer</button>
+                <button class="more-detail" id="${id + "d"}">Details</button>
+
+            </div>
+        `;
+        MAIN.appendChild(movieEl);
+
+        document.getElementById(id).addEventListener("click", () => {
+            console.log(id);
+            openNav(movieCard);
+        });
+
+        document.getElementById(id + "d").addEventListener("click", () => {
+            console.log(id);
+            openDetailNav(movieCard);
+        });
+    });
+}
+
+function listSearches(data) {
     MAIN.innerHTML = "";
 
     data.forEach((movieCard) => {
@@ -237,7 +291,7 @@ searchMovie.addEventListener("submit", (e) => {
     setGenre();
 
     if (searchTerm) {
-        fetchMovies(SEARCH_URL + "&query=" + searchTerm);
+        fetchSearchMovies(SEARCH_URL + "&query=" + searchTerm);
     } else {
         fetchMovies(POPULAR_URL);
     }
